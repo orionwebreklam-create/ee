@@ -1,0 +1,259 @@
+[
+  {
+    "customerName": "Ahmet Yılmaz",
+    "phone": "0532 111 22 33",
+    "email": "ahmet@ornek.com",
+    "address": "Bağdat Cad. No: 124 Daire: 5",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "items": "Geleneksel Ev Tipi Doğal Fermente (5 KG), Gurme Acılı Parmak Sucuk (5 KG)",
+    "itemsList": [
+      {
+        "name": "Geleneksel Ev Tipi Doğal Fermente",
+        "kg": 5,
+        "quantity": 1,
+        "pricePerKg": 630,
+        "totalPrice": 3150
+      },
+      {
+        "name": "Gurme Acılı Parmak Sucuk",
+        "kg": 5,
+        "quantity": 1,
+        "pricePerKg": 570,
+        "totalPrice": 2850
+      }
+    ],
+    "kg": 10,
+    "total": 6000,
+    "paymentMethod": "İyzico 3D Secure Sanal POS",
+    "notes": "",
+    "id": "#ORD-4769",
+    "status": "Hazırlanıyor",
+    "trackingNumber": "YK-4769-84",
+    "cargoCompany": "Yurtiçi Kargo (Soğuk Dağıtım)",
+    "date": "Yeni Sipariş"
+  },
+  {
+    "customerName": "Ahmet Yılmaz",
+    "phone": "0532 111 22 33",
+    "email": "ahmet@ornek.com",
+    "address": "Bağdat Cad. No: 124 Daire: 5",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "items": "Gurme Acılı Parmak Sucuk (5 KG)",
+    "itemsList": [
+      {
+        "name": "Gurme Acılı Parmak Sucuk",
+        "kg": 5,
+        "quantity": 1,
+        "pricePerKg": 570,
+        "totalPrice": 2850
+      }
+    ],
+    "kg": 5,
+    "total": 2850,
+    "paymentMethod": "Kredi Kartı (Online)",
+    "notes": "",
+    "id": "#ORD-3376",
+    "status": "Hazırlanıyor",
+    "trackingNumber": "YK-3376-38",
+    "cargoCompany": "Yurtiçi Kargo (Soğuk Dağıtım)",
+    "date": "Yeni Sipariş"
+  },
+  {
+    "customerName": "Ahmet Yılmaz",
+    "phone": "0532 111 22 33",
+    "email": "ahmet@ornek.com",
+    "address": "Bağdat Cad. No: 124 Daire: 5",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "items": "Geleneksel Ev Tipi Doğal Fermente (3 KG), Özel Afyon Kangal Sucuk (5 KG)",
+    "itemsList": [
+      {
+        "name": "Geleneksel Ev Tipi Doğal Fermente",
+        "kg": 3,
+        "quantity": 1,
+        "pricePerKg": 680,
+        "totalPrice": 2040
+      },
+      {
+        "name": "Özel Afyon Kangal Sucuk",
+        "kg": 5,
+        "quantity": 1,
+        "pricePerKg": 540,
+        "totalPrice": 2700
+      }
+    ],
+    "kg": 8,
+    "total": 4740,
+    "paymentMethod": "Kredi Kartı (Online)",
+    "notes": "",
+    "id": "#ORD-8253",
+    "status": "Kargolandı",
+    "trackingNumber": "YK-8253-48",
+    "cargoCompany": "Yurtiçi Kargo (Soğuk Dağıtım)",
+    "date": "Yeni Sipariş"
+  },
+  {
+    "customerName": "Ahmet Yılmaz",
+    "phone": "0532 111 22 33",
+    "email": "ahmet@ornek.com",
+    "address": "Bağdat Cad. No: 124 Daire: 5",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "items": "Özel Afyon Kangal Sucuk (10 KG)",
+    "itemsList": [
+      {
+        "name": "Özel Afyon Kangal Sucuk",
+        "kg": 10,
+        "quantity": 1,
+        "pricePerKg": 540,
+        "totalPrice": 5400
+      }
+    ],
+    "kg": 10,
+    "total": 5400,
+    "paymentMethod": "Havale / EFT",
+    "notes": "",
+    "id": "#ORD-8221",
+    "status": "Hazırlanıyor",
+    "trackingNumber": "YK-8221-98",
+    "cargoCompany": "Yurtiçi Kargo (Soğuk Dağıtım)",
+    "date": "Yeni Sipariş"
+  },
+  {
+    "customerName": "Ahmet Yılmaz",
+    "phone": "0532 111 22 33",
+    "email": "ahmet@ornek.com",
+    "address": "Bağdat Cad. No: 124 Daire: 5",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "items": "Gurme Acılı Parmak Sucuk (5 KG)",
+    "itemsList": [
+      {
+        "name": "Gurme Acılı Parmak Sucuk",
+        "kg": 5,
+        "quantity": 1,
+        "pricePerKg": 570,
+        "totalPrice": 2850
+      }
+    ],
+    "kg": 5,
+    "total": 2850,
+    "paymentMethod": "Kredi Kartı (Online)",
+    "notes": "",
+    "id": "#ORD-8692",
+    "status": "Hazırlanıyor",
+    "trackingNumber": "YK-8692-16",
+    "cargoCompany": "Yurtiçi Kargo (Soğuk Dağıtım)",
+    "date": "Yeni Sipariş"
+  },
+  {
+    "id": "#ORD-9841",
+    "customerName": "Ahmet Yılmaz",
+    "phone": "0532 555 12 34",
+    "email": "ahmet.yilmaz@gmail.com",
+    "address": "Bağdat Caddesi No: 142 Daire: 8, Suadiye",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "items": "Özel Afyon Kangal Sucuk",
+    "itemsList": [
+      {
+        "name": "Özel Afyon Kangal Sucuk",
+        "kg": 5,
+        "quantity": 1,
+        "pricePerKg": 540,
+        "totalPrice": 2700
+      }
+    ],
+    "kg": 5,
+    "total": 2700,
+    "paymentMethod": "Kapıda Nakit",
+    "status": "Hazırlanıyor",
+    "trackingNumber": "YK-9841-34-IST",
+    "cargoCompany": "Yurtiçi Kargo (Soğuk Dağıtım)",
+    "date": "Bugün 14:20",
+    "notes": "Öğleden sonra teslim edilirse sevinirim."
+  },
+  {
+    "id": "#ORD-9840",
+    "customerName": "Selin Demir",
+    "phone": "0544 333 44 55",
+    "email": "selin.demir@hotmail.com",
+    "address": "Arjantin Caddesi No: 28 Kat: 3",
+    "city": "Ankara",
+    "district": "Çankaya",
+    "items": "Gurme Acılı Parmak Sucuk",
+    "itemsList": [
+      {
+        "name": "Gurme Acılı Parmak Sucuk",
+        "kg": 3,
+        "quantity": 1,
+        "pricePerKg": 620,
+        "totalPrice": 1860
+      }
+    ],
+    "kg": 3,
+    "total": 1860,
+    "paymentMethod": "Kredi Kartı (Online)",
+    "status": "Kargolandı",
+    "trackingNumber": "MNG-4820-ANK",
+    "cargoCompany": "MNG Kargo (Termal Kutu)",
+    "date": "Bugün 11:45",
+    "notes": "Zil çalmasın lütfen bebek uyuyor."
+  },
+  {
+    "id": "#ORD-9839",
+    "customerName": "Mehmet Çelik",
+    "phone": "0555 777 88 99",
+    "email": "m.celik35@gmail.com",
+    "address": "Cemal Gürsel Cad. No: 65/2, Bostanlı",
+    "city": "İzmir",
+    "district": "Karşıyaka",
+    "items": "Geleneksel Ev Tipi Doğal Fermente",
+    "itemsList": [
+      {
+        "name": "Geleneksel Ev Tipi Doğal Fermente",
+        "kg": 10,
+        "quantity": 1,
+        "pricePerKg": 630,
+        "totalPrice": 6300
+      }
+    ],
+    "kg": 10,
+    "total": 6300,
+    "paymentMethod": "Havale / EFT",
+    "status": "Teslim Edildi",
+    "trackingNumber": "YK-8821-35-IZM",
+    "cargoCompany": "Yurtiçi Kargo (Soğuk Dağıtım)",
+    "date": "Dün 17:10",
+    "notes": "Kapıcıya bırakılabilir."
+  },
+  {
+    "id": "#ORD-9838",
+    "customerName": "Mustafa Özkan (Özkan Kasap & Restoran)",
+    "phone": "0533 888 99 00",
+    "email": "ozkan.restoran@gmail.com",
+    "address": "Fatih Sultan Mehmet Bulvarı No: 88, İhsaniye",
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "items": "Toptan Özel Kangal Sucuk",
+    "itemsList": [
+      {
+        "name": "Özel Afyon Kangal Sucuk",
+        "kg": 20,
+        "quantity": 1,
+        "pricePerKg": 540,
+        "totalPrice": 10800
+      }
+    ],
+    "kg": 20,
+    "total": 10800,
+    "paymentMethod": "Kapıda Kredi Kartı",
+    "status": "Kargolandı",
+    "trackingNumber": "ARAS-7193-BURSA",
+    "cargoCompany": "Aras Kargo (Özel Paletli Sevk)",
+    "date": "Dün 09:30",
+    "notes": "Toptan faturalı gönderim."
+  }
+]

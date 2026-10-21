@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("USER") // ADMIN or USER
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  pricePerKg  Float
+  imageUrl    String?
+  stock       Int      @default(100)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id])
+  guestName     String?
+  guestEmail    String?
+  guestPhone    String?
+  guestAddress  String?
+  
+  items         String   // JSON string of items: { productId, name, weight, price, quantity }[]
+  totalAmount   Float
+  paymentMethod String   // CREDIT_CARD, CASH_ON_DELIVERY, CC_ON_DELIVERY, TRANSFER
+  status        String   @default("PENDING") // PENDING, PREPARING, SHIPPED, DELIVERED, CANCELLED
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique // e.g., "logo", "banner", "contact_email", "phone", "address"
+  value       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

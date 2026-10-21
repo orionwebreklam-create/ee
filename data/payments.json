@@ -1,0 +1,52 @@
+{
+  "iyzico": {
+    "enabled": true,
+    "testMode": true,
+    "apiKey": "sandbox-2718281828459045",
+    "secretKey": "sandbox-secret-3141592653589793",
+    "baseUrl": "https://sandbox-api.iyzipay.com"
+  },
+  "paytr": {
+    "enabled": true,
+    "testMode": true,
+    "merchantId": "482910",
+    "merchantKey": "merchant-key-test-8491",
+    "merchantSalt": "merchant-salt-test-7291",
+    "maxInstallments": 6
+  },
+  "cashOnDelivery": {
+    "enabled": true,
+    "extraFee": 50
+  },
+  "cardOnDelivery": {
+    "enabled": true,
+    "extraFee": 0
+  },
+  "bankTransfer": {
+    "enabled": true,
+    "accounts": [
+      {
+        "id": "ziraat",
+        "bankName": "Ziraat Bankası",
+        "accountHolder": "Ardabey Sucukları Gıda San. Tic. Ltd. Şti.",
+        "iban": "TR12 0001 0000 1234 5678 9012 34",
+        "branch": "Afyonkarahisar Şubesi (1234)"
+      },
+      {
+        "id": "isbank",
+        "bankName": "Türkiye İş Bankası",
+        "accountHolder": "Ardabey Sucukları Gıda San. Tic. Ltd. Şti.",
+        "iban": "TR56 0006 4000 0011 2233 4455 66",
+        "branch": "Afyonkarahisar Çarşı Şubesi (4000)"
+      },
+      {
+        "id": "garanti",
+        "bankName": "Garanti BBVA",
+        "accountHolder": "Ardabey Sucukları Gıda San. Tic. Ltd. Şti.",
+        "iban": "TR88 0006 2000 0009 8877 6655 44",
+        "branch": "Organize Sanayi Şubesi (2000)"
+      }
+    ],
+    "instructions": "Lütfen havale/EFT açıklama kısmına Ad-Soyad ve Sipariş Numaranızı yazınız. Ödeme kontrol edildikten sonra siparişiniz özel soğuk zincir strafor kutularda kargoya verilir."
+  }
+}
