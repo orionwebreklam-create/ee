@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     const created = await createStoredProduct({
       name: body.name,
-      category: body.category || "Kangal Sucuk",
+      category: body.category || "Afyon Sucuğu",
       tag: body.tag || "Yeni Ürün",
       description: body.description || "",
       pricePerKg: Number(body.pricePerKg),

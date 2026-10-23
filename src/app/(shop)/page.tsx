@@ -20,6 +20,12 @@ import {
   Sparkles
 } from "lucide-react";
 
+interface Pkg {
+  kg: number;
+  price: number;
+  gift?: number;
+}
+
 interface ProductItem {
   id: number;
   name: string;
@@ -31,64 +37,70 @@ interface ProductItem {
   rating: number;
   reviewsCount: number;
   imageUrl: string;
+  packages?: Pkg[];
+  variants?: string[];
 }
 
 const defaultProducts: ProductItem[] = [
   {
     id: 1,
-    name: "Özel Afyon Kangal Sucuk",
+    name: "Afyon Sucuğu",
     tag: "En Çok Satan",
     tagColor: "bg-red-600 text-white",
-    description: "Doğal bağırsakta geleneksel yöntemlerle dinlendirilmiş, sarımsak ve Afyon baharatlarıyla zenginleşmiş asil lezzet.",
-    basePricePerKg: 590,
+    description: "Doğal bağırsakta 21 gün fermente edilmiş, sarımsak ve Afyon baharatlarıyla yoğrulmuş hakiki lezzet.",
+    basePricePerKg: 350,
     rating: 4.9,
     reviewsCount: 328,
-    imageUrl: "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg"
+    imageUrl: "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg",
+    packages: [
+      { kg: 1, price: 350 },
+      { kg: 5, price: 1750, gift: 1 },
+      { kg: 7, price: 2000, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
+    ],
+    variants: ["Acısız", "Acılı"]
   },
   {
     id: 2,
-    name: "Gurme Acılı Parmak Sucuk",
-    tag: "Şefin Tercihi",
+    name: "Baton Sucuk",
+    tag: "Pratik",
     tagColor: "bg-amber-500 text-neutral-950 font-bold",
-    description: "Özel Urfa ve Maraş acı biberleriyle dengelenmiş, mangal ve kahvaltılara tat katan parmak formunda enfes sucuk.",
-    basePricePerKg: 620,
+    description: "Pratik tüketim için ideal baton formunda, geleneksel reçeteyle üretilmiş doğal fermente sucuk.",
+    basePricePerKg: 400,
     rating: 4.8,
     reviewsCount: 184,
-    imageUrl: "/uploads/1790690316545_sucuk_duzenleme_19_UHD.jpg"
+    imageUrl: "/uploads/1790690316545_sucuk_duzenleme_19_UHD.jpg",
+    packages: [
+      { kg: 1, price: 400 },
+      { kg: 5, price: 1800, gift: 1 },
+      { kg: 7, price: 2100, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
+    ]
   },
   {
     id: 3,
-    name: "Geleneksel Ev Tipi Doğal Fermente Sucuk",
-    tag: "Sınırlı Üretim",
+    name: "Bez Sucuk",
+    tag: "Geleneksel",
     tagColor: "bg-emerald-600 text-white",
-    description: "Isıl işlem görmemiş, 21 gün doğal fermantasyon odalarında olgunlaştırılmış %100 katkısız doğal et lezzeti.",
-    basePricePerKg: 680,
-    rating: 5.0,
-    reviewsCount: 215,
-    imageUrl: "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg"
-  },
-  {
-    id: 4,
-    name: "Özel Dilimli Pratik Kangal Sucuk",
-    tag: "Hızlı & Pratik",
-    tagColor: "bg-neutral-800 text-amber-300 border border-amber-400/40",
-    description: "Kahvaltılar ve tostlar için ideal kalınlıkta hijyenik dilimlenmiş, tazeliği kilitli özel vakum pakette.",
-    basePricePerKg: 640,
-    rating: 4.7,
-    reviewsCount: 92,
-    imageUrl: "/uploads/1790690350599_sucuk_duzenleme_16_UHD.jpg"
+    description: "Geleneksel bez yöntemiyle sarılarak dinlendirilmiş, yoğun aromalı özel Afyon sucuğu.",
+    basePricePerKg: 550,
+    rating: 4.9,
+    reviewsCount: 146,
+    imageUrl: "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
+    packages: [
+      { kg: 1, price: 550 },
+      { kg: 5, price: 2750 },
+      { kg: 7, price: 3850 },
+      { kg: 10, price: 5500 }
+    ]
   }
 ];
 
 export default function Home() {
   const { addToCart } = useCart();
   const [productList, setProductList] = useState<ProductItem[]>(defaultProducts);
-  const [selectedKgMap, setSelectedKgMap] = useState<Record<number, number>>({
-    1: 3,
-    2: 1,
-    3: 5,
-    4: 1
-  });
+  const [selectedKgMap, setSelectedKgMap] = useState<Record<number, number>>({});
+  const [selectedVariantMap, setSelectedVariantMap] = useState<Record<number, string>>({});
 
   useEffect(() => {
     fetch("/api/products")
@@ -104,7 +116,9 @@ export default function Home() {
             basePricePerKg: p.pricePerKg,
             rating: p.rating || 5.0,
             reviewsCount: p.reviewsCount || 150,
-            imageUrl: p.imageUrl || "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg"
+            imageUrl: p.imageUrl || "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg",
+            packages: p.packages || [],
+            variants: p.variants || []
           }));
           setProductList(mapped);
         }
@@ -116,11 +130,8 @@ export default function Home() {
     setSelectedKgMap(prev => ({ ...prev, [productId]: kg }));
   };
 
-  const getDiscountedPrice = (basePrice: number, kg: number) => {
-    // 5kg ve üzeri toplu alımda 50 TL/kg indirim
-    const discountPerKg = kg >= 5 ? 50 : 0;
-    const finalPricePerKg = basePrice - discountPerKg;
-    return finalPricePerKg * kg;
+  const handleVariantChange = (productId: number, v: string) => {
+    setSelectedVariantMap(prev => ({ ...prev, [productId]: v }));
   };
 
   return (
@@ -148,7 +159,7 @@ export default function Home() {
               <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div>
-              <h4 className="text-xs sm:text-sm font-bold text-white tracking-wide">%100 Yerli Dana</h4>
+              <h4 className="text-xs sm:text-sm font-bold text-white tracking-wide">%100 Afyon Sucuğu</h4>
               <p className="text-[11px] text-neutral-400 mt-0.5">Helal kesim & sıfır katkı maddesi</p>
             </div>
           </div>
@@ -189,16 +200,21 @@ export default function Home() {
             ARDABEY <span className="gold-gradient-text">ÖZEL SEÇİM</span> SUCUKLARI
           </h2>
           <p className="text-neutral-400 text-sm sm:text-base mt-3">
-            Sipariş vermek istediğiniz kilogramı (1, 3, 5, 10, 20 KG) seçin, avantajlı paket fiyatıyla sepetinize ekleyin.
+            Sipariş vermek istediğiniz paketi (1, 5, 7, 10 KG) seçin, avantajlı paket fiyatıyla sepetinize ekleyin.
           </p>
         </div>
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {productList.map((product) => {
-            const currentKg = selectedKgMap[product.id] || 1;
-            const totalPrice = getDiscountedPrice(product.basePricePerKg, currentKg);
-            const hasBulkDiscount = currentKg >= 5;
+            const packages = product.packages && product.packages.length > 0
+              ? product.packages
+              : [{ kg: 1, price: product.basePricePerKg }];
+            const currentKg = selectedKgMap[product.id] || packages[0].kg;
+            const pkg = packages.find(x => x.kg === currentKg) || packages[0];
+            const variants = product.variants || [];
+            const variant = selectedVariantMap[product.id] || variants[0];
+            const totalPrice = pkg.price;
 
             return (
               <div 
@@ -249,30 +265,59 @@ export default function Home() {
                     {product.description}
                   </p>
 
-                  {/* KG Selector Button Row (1, 3, 5, 10, 20 KG) */}
+                  {/* Variant Selector (acılı/acısız) */}
+                  {variants.length > 1 && (
+                    <div className="mb-3">
+                      <label className="text-[11px] font-semibold text-neutral-300 uppercase tracking-wider block mb-1.5">
+                        Seçenek:
+                      </label>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {variants.map((v) => (
+                          <button
+                            key={v}
+                            onClick={() => handleVariantChange(product.id, v)}
+                            className={`py-1.5 text-xs font-bold rounded-lg border transition-all ${
+                              variant === v
+                                ? "bg-red-600 text-white border-red-500 shadow-md shadow-red-900/30"
+                                : "bg-neutral-800/80 hover:bg-neutral-700 text-neutral-300 border-neutral-700"
+                            }`}
+                          >
+                            {v}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Package Selector (1, 5, 7, 10 KG) */}
                   <div className="mb-4">
                     <div className="flex justify-between items-center mb-1.5">
                       <label className="text-[11px] font-semibold text-neutral-300 uppercase tracking-wider">
-                        Ağırlık Seçimi:
+                        Paket Seçimi:
                       </label>
-                      {hasBulkDiscount && (
+                      {pkg.gift ? (
                         <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                          Kg Başı 50 ₺ İndirim!
+                          +{pkg.gift} KG Hediye
                         </span>
-                      )}
+                      ) : null}
                     </div>
-                    <div className="grid grid-cols-5 gap-1.5">
-                      {[1, 3, 5, 10, 20].map((kg) => (
+                    <div className="grid grid-cols-4 gap-1.5">
+                      {packages.map((opt) => (
                         <button
-                          key={kg}
-                          onClick={() => handleKgChange(product.id, kg)}
-                          className={`py-1.5 text-xs font-bold rounded-lg border transition-all ${
-                            currentKg === kg
+                          key={opt.kg}
+                          onClick={() => handleKgChange(product.id, opt.kg)}
+                          className={`relative py-1.5 text-xs font-bold rounded-lg border transition-all ${
+                            currentKg === opt.kg
                               ? "bg-amber-500 text-neutral-950 border-amber-400 shadow-md shadow-amber-500/20 scale-105"
                               : "bg-neutral-800/80 hover:bg-neutral-700 text-neutral-300 border-neutral-700"
                           }`}
                         >
-                          {kg}kg
+                          {opt.kg}kg
+                          {opt.gift ? (
+                            <span className="absolute -top-1.5 -right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 text-neutral-950 text-[8px] font-black">
+                              {opt.gift}
+                            </span>
+                          ) : null}
                         </button>
                       ))}
                     </div>
@@ -299,9 +344,8 @@ export default function Home() {
                       onClick={(e) => addToCart({
                         id: product.id,
                         name: product.name,
-                        pricePerKg: product.basePricePerKg,
                         image: product.imageUrl
-                      }, currentKg, 1, e)}
+                      }, pkg, 1, variants.length > 1 ? variant : undefined, e)}
                       className="flex items-center justify-center space-x-1.5 py-2.5 px-3 text-xs font-bold rounded-xl bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-900/40 transition-all hover:scale-105 active:scale-95 cursor-pointer"
                     >
                       <ShoppingBag className="h-3.5 w-3.5" />
@@ -343,7 +387,7 @@ export default function Home() {
                 <span className="gold-gradient-text">GERÇEK DOĞAL FERMANTASYON</span>
               </h2>
               <p className="text-neutral-300 text-sm sm:text-base leading-relaxed mb-6">
-                Market raflarında gördüğünüz hızlı pişirilmiş (ısıl işlem görmüş) sucukların aksine; Ardabey Sucukları sadece yerli besi danaların en kaliteli but ve kaburga etlerinden çekilir.
+                Market raflarında gördüğünüz hızlı pişirilmiş (ısıl işlem görmüş) sucukların aksine; Ardabey Sucukları sadece özenle seçilmiş but ve kaburga etlerinden çekilir.
               </p>
 
               <div className="space-y-4 mb-8">
@@ -366,7 +410,7 @@ export default function Home() {
                 <div className="flex items-start space-x-3">
                   <CheckCircle2 className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-sm font-bold text-white">Yenilebilir Doğal Dana Bağırsak</h4>
+                    <h4 className="text-sm font-bold text-white">Yenilebilir Doğal Bağırsak</h4>
                     <p className="text-xs text-neutral-400">Sentetik kılıf veya koruyucu kimyasallar kesinlikle kullanılmaz, %100 doğaldır.</p>
                   </div>
                 </div>
@@ -408,7 +452,7 @@ export default function Home() {
                   </div>
                   <div className="bg-neutral-900/90 backdrop-blur-md p-3 rounded-2xl border border-neutral-700 text-center">
                     <span className="block text-2xl font-black text-red-500">%100</span>
-                    <span className="text-[10px] text-neutral-300 uppercase font-semibold">Dana Eti</span>
+                    <span className="text-[10px] text-neutral-300 uppercase font-semibold">Afyon Sucuğu</span>
                   </div>
                   <div className="bg-neutral-900/90 backdrop-blur-md p-3 rounded-2xl border border-neutral-700 text-center">
                     <span className="block text-2xl font-black text-emerald-400">50K+</span>

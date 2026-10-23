@@ -30,7 +30,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-xs text-neutral-400 leading-relaxed mb-4">
-              1978&apos;den bu yana Afyonkarahisar&apos;ın tescilli lezzetini sofralara taşıyoruz. %100 yerli besi dana eti, asırlık baharat reçeteleri ve doğal kurutma fırınlarında geleneksel ustalık.
+              1978&apos;den bu yana Afyonkarahisar&apos;ın tescilli lezzetini sofralara taşıyoruz. %100 Afyon Sucuğu, asırlık baharat reçeteleri ve doğal kurutma fırınlarında geleneksel ustalık.
             </p>
             <div className="flex items-center space-x-2 text-xs text-amber-400 font-semibold">
               <ShieldCheck className="h-4 w-4" />

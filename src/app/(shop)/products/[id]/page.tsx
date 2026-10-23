@@ -14,12 +14,17 @@ import {
   Check, 
   Minus, 
   Plus, 
-  Award,
-  Flame,
-  PhoneCall
+  Gift
 } from "lucide-react";
 
-const productCatalog: Record<string, {
+interface Pkg {
+  kg: number;
+  price: number;
+  gift?: number;
+}
+
+interface ProductData {
+  id?: number;
   name: string;
   tag: string;
   description: string;
@@ -27,101 +32,96 @@ const productCatalog: Record<string, {
   image: string;
   features: string[];
   specs: { label: string; value: string }[];
-}> = {
+  packages?: Pkg[];
+  variants?: string[];
+}
+
+const productCatalog: Record<string, ProductData> = {
   "1": {
-    name: "Özel Afyon Kangal Sucuk",
+    name: "Afyon Sucuğu",
     tag: "En Çok Tercih Edilen",
-    description: "Geleneksel Türk damak tadının zirvesi! %100 yerli besi dana eti, taze Taşköprü sarımsağı ve yöresel Afyon baharatlarıyla hazırlanmış hakiki kangal sucuk. Doğal bağırsakta ve geleneksel fırınlarda 21 gün dinlendirilerek olgunlaştırılmıştır.",
-    pricePerKg: 590,
+    description: "Geleneksel yöntemlerle üretilmiş, taze Taşköprü sarımsağı ve yöresel Afyon baharatlarıyla yoğrulmuş, doğal bağırsakta 21 gün fermente edilmiş hakiki Afyon sucuğu.",
+    pricePerKg: 350,
     image: "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg",
+    packages: [
+      { kg: 1, price: 350 },
+      { kg: 5, price: 1750, gift: 1 },
+      { kg: 7, price: 2000, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
+    ],
+    variants: ["Acısız", "Acılı"],
     features: [
-      "%100 Yerli Besi Dana Eti",
-      "Doğal Dana Bağırsak",
+      "%100 Afyon Sucuğu",
+      "Doğal Bağırsak",
       "Isıl İşlemsiz Doğal Fermente",
       "Sıfır Kimyasal Katkı & Koruyucu",
-      "Glutensiz & Helal Kesim Sertifikalı",
-      "Taş Fırınlarda Dinlendirilmiş"
+      "Glutensiz & Helal Kesim Sertifikalı"
     ],
     specs: [
       { label: "Menşei", value: "Afyonkarahisar / Türkiye" },
       { label: "Üretim Şekli", value: "Geleneksel Doğal Fermantasyon" },
-      { label: "Et Türü", value: "%100 Dana Eti (But ve Kaburga)" },
-      { label: "Muhafaza", value: "0°C ile +4°C arasında muhafaza ediniz" }
+      { label: "Seçenek", value: "Acılı / Acısız" }
     ]
   },
   "2": {
-    name: "Gurme Acılı Parmak Sucuk",
-    tag: "Acı Severlere Özel",
-    description: "Özel harmanlanmış Maraş ve Urfa ipek pul biberleriyle yoğrulmuş, acısıyla iştah kabartan parmak formunda Afyon sucuğu. Sahanda yumurtada veya mangalda dışı çıtır içi sulu kalır.",
-    pricePerKg: 620,
+    name: "Baton Sucuk",
+    tag: "Pratik",
+    description: "Pratik tüketim için ideal baton formunda, geleneksel reçeteyle üretilmiş, doğal fermente Afyon sucuğu.",
+    pricePerKg: 400,
     image: "/uploads/1790690316545_sucuk_duzenleme_19_UHD.jpg",
-    features: [
-      "%100 Dana Eti",
-      "Doğal Acı Pul Biber Karışımı",
-      "Mangala Uygun İdeal Yağ Oranı",
-      "Geleneksel Kurutma",
-      "Katkısız & Doğal Bağırsak"
+    packages: [
+      { kg: 1, price: 400 },
+      { kg: 5, price: 1800, gift: 1 },
+      { kg: 7, price: 2100, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
     ],
-    specs: [
-      { label: "Menşei", value: "Afyonkarahisar" },
-      { label: "Acılık Oranı", value: "Orta - Yüksek Gurme Acı" },
-      { label: "Muhafaza", value: "+4°C Vakumlu Ambalaj" }
-    ]
-  },
-  "3": {
-    name: "Geleneksel Ev Tipi Doğal Fermente",
-    tag: "Sınırlı Üretim",
-    description: "Isıl işlem görmemiş, 21 gün doğal fermantasyon odalarında olgunlaştırılmış %100 katkısız doğal et lezzeti.",
-    pricePerKg: 680,
-    image: "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
     features: [
-      "21 Gün Doğal Kurutma",
-      "Geleneksel Ev Tipi Reçete",
+      "%100 Afyon Sucuğu",
+      "Doğal Bağırsak",
+      "Geleneksel Kurutma",
       "Katkısız & Koruyucusuz"
     ],
     specs: [
       { label: "Menşei", value: "Afyonkarahisar" },
-      { label: "Olgunlaşma", value: "21 Gün Doğal Fırınlama" }
+      { label: "Form", value: "Baton" }
     ]
   },
-  "4": {
-    name: "Özel Dilimli Pratik Kangal Sucuk",
-    tag: "Hızlı & Pratik",
-    description: "Kahvaltılar ve tostlar için ideal kalınlıkta hijyenik dilimlenmiş, tazeliği kilitli özel vakum pakette.",
-    pricePerKg: 640,
-    image: "/uploads/1790690350599_sucuk_duzenleme_16_UHD.jpg",
+  "3": {
+    name: "Bez Sucuk",
+    tag: "Geleneksel",
+    description: "Geleneksel bez yöntemiyle sarılarak dinlendirilmiş, yoğun aromalı ve uzun raf ömürlü özel Afyon sucuğu.",
+    pricePerKg: 550,
+    image: "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
+    packages: [
+      { kg: 1, price: 550 },
+      { kg: 5, price: 2750 },
+      { kg: 7, price: 3850 },
+      { kg: 10, price: 5500 }
+    ],
     features: [
-      "Eşit Dilimlenmiş Dilimler",
-      "Tazeliği Korumalı Vakum Ambalaj"
+      "%100 Afyon Sucuğu",
+      "Geleneksel Bez Yöntemi",
+      "Doğal Bağırsak",
+      "Yoğun Aromalı"
     ],
     specs: [
       { label: "Menşei", value: "Afyonkarahisar" },
-      { label: "Paket", value: "Vakumlu Koruyucu Tabak" }
+      { label: "Ambalaj", value: "Geleneksel Bez" }
     ]
   }
 };
 
 const defaultProduct = productCatalog["1"];
 
-const weightOptions = [1, 3, 5, 10, 20];
-
 export default function ProductDetail() {
   const { addToCart } = useCart();
   const params = useParams();
   const id = typeof params?.id === "string" ? params.id : "1";
   
-  const [item, setItem] = useState<{
-    id?: number;
-    name: string;
-    tag: string;
-    description: string;
-    pricePerKg: number;
-    image: string;
-    features: string[];
-    specs: { label: string; value: string }[];
-  }>(productCatalog[id] || defaultProduct);
+  const [item, setItem] = useState<ProductData>(productCatalog[id] || defaultProduct);
 
-  const [selectedWeight, setSelectedWeight] = useState(3);
+  const [selectedKg, setSelectedKg] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -139,21 +139,26 @@ export default function ProductDetail() {
             pricePerKg: p.pricePerKg || prev.pricePerKg,
             image: p.imageUrl || prev.image,
             features: p.features || prev.features,
-            specs: p.specs || prev.specs
+            specs: p.specs || prev.specs,
+            packages: p.packages || prev.packages,
+            variants: p.variants || prev.variants
           }));
+          if (p.variants?.length) {
+            setSelectedVariant(p.variants[0]);
+          }
         }
       })
       .catch(console.error);
   }, [id]);
 
-  // Bulk discount: 5kg and above gives 50 TL discount per kg
-  const discountPerKg = selectedWeight >= 5 ? 50 : 0;
-  const effectivePricePerKg = item.pricePerKg - discountPerKg;
-  const singlePackTotal = effectivePricePerKg * selectedWeight;
+  const packages: Pkg[] = item.packages && item.packages.length > 0 ? item.packages : [{ kg: 1, price: item.pricePerKg }];
+  const variants = item.variants || [];
+  const pkg = packages.find(x => x.kg === selectedKg) || packages[0];
+  const singlePackTotal = pkg.price;
   const grandTotal = singlePackTotal * quantity;
 
   const whatsappMessage = encodeURIComponent(
-    `Merhaba, Ardabey Sucukları web sitesinden "${item.name}" ürününü ${quantity} adet (${selectedWeight} KG x ${quantity} = ${selectedWeight * quantity} KG) sipariş vermek istiyorum.`
+    `Merhaba, Ardabey Sucukları web sitesinden "${item.name}"${variants.length > 1 ? ` (${selectedVariant || variants[0]})` : ""} ürününü ${quantity} adet (${pkg.kg} KG x ${quantity} = ${pkg.kg * quantity} KG) sipariş vermek istiyorum.`
   );
 
   return (
@@ -223,13 +228,8 @@ export default function ProductDetail() {
               </h1>
 
               <div className="flex items-baseline space-x-3 mb-6 pb-6 border-b border-neutral-800">
-                <span className="text-3xl font-black text-amber-400">{effectivePricePerKg} ₺</span>
-                <span className="text-sm text-neutral-400">/ Kilogram</span>
-                {discountPerKg > 0 && (
-                  <span className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                    50 ₺/Kg Toplu İndirim Uygulandı!
-                  </span>
-                )}
+                <span className="text-3xl font-black text-amber-400">{item.pricePerKg} ₺</span>
+                <span className="text-sm text-neutral-400">/ Kilogram (1 KG başlangıç)</span>
               </div>
 
               {/* Description */}
@@ -252,34 +252,64 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              {/* KG Selection */}
+              {/* Variant Selector */}
+              {variants.length > 1 && (
+                <div className="mb-5">
+                  <h3 className="text-xs font-bold text-neutral-300 uppercase tracking-wider mb-3">
+                    Seçenek (Acılı / Acısız):
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3 max-w-xs">
+                    {variants.map((v) => (
+                      <button
+                        key={v}
+                        onClick={() => setSelectedVariant(v)}
+                        className={`py-3 text-sm font-bold rounded-xl border transition-all ${
+                          selectedVariant === v
+                            ? "bg-red-600 text-white border-red-500 shadow-lg shadow-red-900/30"
+                            : "bg-neutral-950 hover:bg-neutral-800 text-neutral-300 border-neutral-800"
+                        }`}
+                      >
+                        {v}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Package Selection */}
               <div className="mb-6 bg-neutral-950/60 p-4 rounded-2xl border border-neutral-800">
-                <div className="flex justify-between items-center mb-2">
+                <div className="flex justify-between items-center mb-3">
                   <span className="text-xs font-bold text-white uppercase tracking-wider">
                     Paket Ağırlığı Seçiniz:
                   </span>
-                  <span className="text-xs text-neutral-400 font-medium">Seçili: {selectedWeight} KG</span>
+                  <span className="text-xs text-neutral-400 font-medium">Seçili: {pkg.kg} KG</span>
                 </div>
-                <div className="grid grid-cols-5 gap-2">
-                  {weightOptions.map((weight) => (
+                <div className="grid grid-cols-4 gap-2">
+                  {packages.map((opt) => (
                     <button
-                      key={weight}
-                      onClick={() => setSelectedWeight(weight)}
-                      className={`py-3 text-xs font-bold rounded-xl border transition-all ${
-                        selectedWeight === weight
+                      key={opt.kg}
+                      onClick={() => setSelectedKg(opt.kg)}
+                      className={`relative py-3 text-xs font-bold rounded-xl border transition-all ${
+                        selectedKg === opt.kg
                           ? "bg-amber-500 text-neutral-950 border-amber-400 font-black shadow-lg shadow-amber-500/20 scale-105"
                           : "bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border-neutral-800"
                       }`}
                     >
-                      {weight} KG
+                      {opt.kg} KG
+                      {opt.gift ? (
+                        <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-neutral-950 text-[10px] font-black">
+                          {opt.gift}
+                        </span>
+                      ) : null}
                     </button>
                   ))}
                 </div>
-                {selectedWeight < 5 && (
-                  <p className="text-[11px] text-amber-400/80 mt-2 font-medium">
-                    💡 İpucu: 5 KG ve üzeri seçimlerde kg başı 50 ₺ ek indirim kazanabilirsiniz.
+                {pkg.gift ? (
+                  <p className="text-[11px] text-emerald-400 mt-3 font-semibold flex items-center gap-1">
+                    <Gift className="h-3.5 w-3.5" />
+                    Bu pakette {pkg.gift} KG hediye sucuk dahildir.
                   </p>
-                )}
+                ) : null}
               </div>
 
               {/* Quantity */}
@@ -308,7 +338,7 @@ export default function ProductDetail() {
               <div className="flex items-baseline justify-between mb-4">
                 <div>
                   <span className="text-xs text-neutral-400 block">Toplam Tutar:</span>
-                  <span className="text-xs text-neutral-500">({quantity} Adet x {selectedWeight} KG = {quantity * selectedWeight} KG)</span>
+                  <span className="text-xs text-neutral-500">({quantity} Adet x {pkg.kg} KG = {quantity * pkg.kg} KG)</span>
                 </div>
                 <span className="text-3xl sm:text-4xl font-black text-white">
                   {grandTotal.toLocaleString("tr-TR")} ₺
@@ -320,9 +350,8 @@ export default function ProductDetail() {
                   onClick={(e) => addToCart({
                     id: Number(id) || 1,
                     name: item.name,
-                    pricePerKg: item.pricePerKg,
                     image: item.image
-                  }, selectedWeight, quantity, e)}
+                  }, pkg, quantity, variants.length > 1 ? (selectedVariant || variants[0]) : undefined, e)}
                   className="flex items-center justify-center space-x-2 py-4 px-6 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-xl shadow-red-900/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
                 >
                   <ShoppingBag className="h-4 w-4" />

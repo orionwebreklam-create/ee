@@ -13,6 +13,8 @@ export interface CartItem {
   pricePerKg: number;
   totalPrice: number;
   image: string;
+  variant?: string;
+  gift?: number;
 }
 
 interface ToastData {
@@ -36,9 +38,10 @@ interface FlyingItemData {
 interface CartContextType {
   items: CartItem[];
   addToCart: (
-    product: { id: number; name: string; pricePerKg: number; image?: string },
-    kg: number,
+    product: { id: number; name: string; image?: string },
+    pkg: { kg: number; price: number; gift?: number },
     quantity?: number,
+    variant?: string,
     clickEvent?: React.MouseEvent
   ) => void;
   removeFromCart: (id: string) => void;
@@ -63,19 +66,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (saved) {
         setItems(JSON.parse(saved));
       } else {
-        // Initial sample item
-        setItems([
-          {
-            id: "initial-1",
-            productId: 1,
-            name: "Özel Afyon Kangal Sucuk",
-            kg: 5,
-            quantity: 1,
-            pricePerKg: 540,
-            totalPrice: 2700,
-            image: "https://images.unsplash.com/photo-1589304198126-79c2a382101e?auto=format&fit=crop&w=150&q=80"
-          }
-        ]);
+        setItems([]);
       }
     } catch (e) {
       console.error(e);
@@ -92,26 +83,28 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items]);
 
   const addToCart = (
-    product: { id: number; name: string; pricePerKg: number; image?: string },
-    kg: number,
+    product: { id: number; name: string; image?: string },
+    pkg: { kg: number; price: number; gift?: number },
     quantity = 1,
+    variant?: string,
     clickEvent?: React.MouseEvent
   ) => {
-    // 5kg and above gives 50 TL discount per kg
-    const discountPerKg = kg >= 5 ? 50 : 0;
-    const effectivePricePerKg = product.pricePerKg - discountPerKg;
-    const itemTotal = effectivePricePerKg * kg * quantity;
+    const displayName = variant ? `${product.name} (${variant})` : product.name;
+    const itemTotal = pkg.price * quantity;
+    const pricePerKg = pkg.kg > 0 ? pkg.price / pkg.kg : pkg.price;
     const img = product.image || "https://images.unsplash.com/photo-1589304198126-79c2a382101e?auto=format&fit=crop&w=150&q=80";
 
     const newItem: CartItem = {
-      id: `${product.id}-${kg}-${Date.now()}`,
+      id: `${product.id}-${pkg.kg}-${variant || "std"}-${Date.now()}`,
       productId: product.id,
-      name: product.name,
-      kg,
+      name: displayName,
+      kg: pkg.kg,
       quantity,
-      pricePerKg: effectivePricePerKg,
+      pricePerKg,
       totalPrice: itemTotal,
-      image: img
+      image: img,
+      variant,
+      gift: pkg.gift
     };
 
     setItems((prev) => [newItem, ...prev]);
@@ -154,8 +147,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const toastId = Date.now();
     const newToast: ToastData = {
       id: toastId,
-      productName: product.name,
-      kg,
+      productName: displayName,
+      kg: pkg.kg,
       quantity,
       totalPrice: itemTotal,
       image: img

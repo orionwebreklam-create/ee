@@ -199,7 +199,7 @@ export default function OrderPrintModal({
                           <td className="py-2.5 px-3 font-bold text-neutral-900">
                             {item.name}
                             <span className="block text-[10px] font-normal text-neutral-500">
-                              %100 Dana Eti • Isıl İşlemsiz Doğal Fermente
+                              %100 Afyon Sucuğu • Isıl İşlemsiz Doğal Fermente
                             </span>
                           </td>
                           <td className="py-2.5 px-3 text-center font-bold">{item.kg} KG</td>
@@ -215,7 +215,7 @@ export default function OrderPrintModal({
                         <td className="py-2.5 px-3 font-bold text-neutral-900">
                           {order.items}
                           <span className="block text-[10px] font-normal text-neutral-500">
-                            Geleneksel Tescilli Afyon Dana Sucuğu
+                            Geleneksel Tescilli Afyon Sucuğu
                           </span>
                         </td>
                         <td className="py-2.5 px-3 text-center font-bold">{order.kg} KG</td>

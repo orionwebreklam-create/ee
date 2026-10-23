@@ -931,7 +931,7 @@ export default function CartPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="text-xs font-bold text-white truncate">{item.name}</h4>
-                        <p className="text-[11px] text-amber-400 font-medium">{item.kg} KG Paket • {item.quantity} Adet</p>
+                        <p className="text-[11px] text-amber-400 font-medium">{item.kg} KG Paket {item.gift ? `• +${item.gift} KG Hediye` : ""} • {item.quantity} Adet</p>
                         <p className="text-[11px] font-bold text-white">{item.totalPrice.toLocaleString("tr-TR")} ₺</p>
                       </div>
                       <button

@@ -3,12 +3,19 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
-import { Star, ShoppingBag, Sparkles, ShieldCheck, Flame, ArrowRight } from "lucide-react";
+import { Star, ShoppingBag, Sparkles, Gift } from "lucide-react";
+
+interface Pkg {
+  kg: number;
+  price: number;
+  gift?: number;
+}
 
 interface Product {
   id: number;
   name: string;
   tag: string;
+  tagColor?: string;
   desc?: string;
   description?: string;
   pricePerKg: number;
@@ -17,60 +24,70 @@ interface Product {
   rating: number;
   reviews?: number;
   reviewsCount?: number;
+  packages?: Pkg[];
+  variants?: string[];
 }
 
 const defaultProducts: Product[] = [
   { 
     id: 1, 
-    name: "Özel Afyon Kangal Sucuk", 
-    tag: "Geleneksel Klasik",
-    desc: "%100 yerli dana eti ve Afyonkarahisar'ın meşhur baharat harmanı ile asırlık reçeteyle doldurulmuştur.",
-    pricePerKg: 590, 
+    name: "Afyon Sucuğu", 
+    tag: "En Çok Satan",
+    tagColor: "bg-red-600 text-white",
+    description: "Doğal bağırsakta 21 gün fermente edilmiş, sarımsak ve Afyon baharatlarıyla yoğrulmuş hakiki lezzet.",
+    pricePerKg: 350, 
     imageUrl: "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg",
     rating: 4.9,
-    reviews: 340
+    reviewsCount: 328,
+    packages: [
+      { kg: 1, price: 350 },
+      { kg: 5, price: 1750, gift: 1 },
+      { kg: 7, price: 2000, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
+    ],
+    variants: ["Acısız", "Acılı"]
   },
   { 
     id: 2, 
-    name: "Gurme Acılı Parmak Sucuk", 
-    tag: "Acı Severlere Özel",
-    desc: "Özel kurutulmuş Maraş pul biberi ve sarımsak dengesiyle mangalda ve sahanda çıtırdayan lezzet.",
-    pricePerKg: 620, 
+    name: "Baton Sucuk", 
+    tag: "Pratik",
+    tagColor: "bg-amber-500 text-neutral-950 font-bold",
+    description: "Pratik tüketim için ideal baton formunda, geleneksel reçeteyle üretilmiş doğal fermente sucuk.",
+    pricePerKg: 400, 
     imageUrl: "/uploads/1790690316545_sucuk_duzenleme_19_UHD.jpg",
     rating: 4.8,
-    reviews: 195
+    reviewsCount: 184,
+    packages: [
+      { kg: 1, price: 400 },
+      { kg: 5, price: 1800, gift: 1 },
+      { kg: 7, price: 2100, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
+    ]
   },
   { 
     id: 3, 
-    name: "Geleneksel Ev Tipi Doğal Fermente Sucuk", 
-    tag: "Katkısız %100 Doğal",
-    desc: "Hızlı fırınlama veya ısıl işlem görmemiş, 21 gün serin kurutma odalarında fermente edilmiş gurme sucuk.",
-    pricePerKg: 680, 
+    name: "Bez Sucuk", 
+    tag: "Geleneksel",
+    tagColor: "bg-emerald-600 text-white",
+    description: "Geleneksel bez yöntemiyle sarılarak dinlendirilmiş, yoğun aromalı özel Afyon sucuğu.",
+    pricePerKg: 550, 
     imageUrl: "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
-    rating: 5.0,
-    reviews: 210
-  },
-  { 
-    id: 4, 
-    name: "Özel Dilimli Pratik Kangal Sucuk", 
-    tag: "Taze Dilim",
-    desc: "Hijyenik koşullarda eşit dilimlenmiş, tost ve kahvaltı için anında kullanıma hazır tazeliği kilitli paket.",
-    pricePerKg: 640, 
-    imageUrl: "/uploads/1790690350599_sucuk_duzenleme_16_UHD.jpg",
-    rating: 4.7,
-    reviews: 88
+    rating: 4.9,
+    reviewsCount: 146,
+    packages: [
+      { kg: 1, price: 550 },
+      { kg: 5, price: 2750 },
+      { kg: 7, price: 3850 },
+      { kg: 10, price: 5500 }
+    ]
   }
 ];
 
 export default function ProductsPage() {
   const { addToCart } = useCart();
   const [productList, setProductList] = useState<Product[]>(defaultProducts);
-  const [selectedKg, setSelectedKg] = useState<Record<number, number>>({
-    1: 3,
-    2: 1,
-    3: 5,
-    4: 1
-  });
+  const [selectedKg, setSelectedKg] = useState<Record<number, number>>({});
+  const [selectedVariant, setSelectedVariant] = useState<Record<number, string>>({});
 
   useEffect(() => {
     fetch("/api/products")
@@ -85,6 +102,10 @@ export default function ProductsPage() {
 
   const handleKg = (pId: number, kg: number) => {
     setSelectedKg(prev => ({ ...prev, [pId]: kg }));
+  };
+
+  const handleVariant = (pId: number, v: string) => {
+    setSelectedVariant(prev => ({ ...prev, [pId]: v }));
   };
 
   return (
@@ -108,9 +129,11 @@ export default function ProductsPage() {
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {productList.map((p) => {
-            const kg = selectedKg[p.id] || 1;
-            const discount = kg >= 5 ? 50 : 0;
-            const finalTotal = (p.pricePerKg - discount) * kg;
+            const packages = p.packages && p.packages.length > 0 ? p.packages : [{ kg: 1, price: p.pricePerKg }];
+            const kg = selectedKg[p.id] || packages[0].kg;
+            const pkg = packages.find(x => x.kg === kg) || packages[0];
+            const variants = p.variants || [];
+            const variant = selectedVariant[p.id] || variants[0];
             const productImage = p.imageUrl || p.img || "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg";
 
             return (
@@ -127,7 +150,7 @@ export default function ProductsPage() {
                       className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     />
                     <div className="absolute top-3 left-3">
-                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-red-600 text-white shadow-md">
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-md ${p.tagColor || "bg-red-600 text-white"}`}>
                         {p.tag}
                       </span>
                     </div>
@@ -157,28 +180,55 @@ export default function ProductsPage() {
                     {p.description || p.desc}
                   </p>
 
-                  {/* Weight Selector */}
+                  {/* Variant Selector (acılı/acısız) */}
+                  {variants.length > 1 && (
+                    <div className="mb-4">
+                      <span className="text-xs font-bold text-neutral-300 block mb-2">Seçenek:</span>
+                      <div className="grid grid-cols-2 gap-2">
+                        {variants.map((v) => (
+                          <button
+                            key={v}
+                            onClick={() => handleVariant(p.id, v)}
+                            className={`py-2 text-xs font-bold rounded-xl border transition-all ${
+                              variant === v
+                                ? "bg-red-600 text-white border-red-500 shadow-md"
+                                : "bg-neutral-950 hover:bg-neutral-800 text-neutral-300 border-neutral-800"
+                            }`}
+                          >
+                            {v}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Package Selector */}
                   <div className="mb-6 bg-neutral-950/60 p-3.5 rounded-2xl border border-neutral-800">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs font-bold text-neutral-300">KG Seçimi:</span>
-                      {kg >= 5 && (
+                      <span className="text-xs font-bold text-neutral-300">Paket Seçimi:</span>
+                      {pkg.gift ? (
                         <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                          Kg Başı 50 ₺ İndirim!
+                          <Gift className="h-3 w-3 inline mr-0.5" /> +{pkg.gift} KG Hediye
                         </span>
-                      )}
+                      ) : null}
                     </div>
-                    <div className="grid grid-cols-5 gap-2">
-                      {[1, 3, 5, 10, 20].map((weight) => (
+                    <div className="grid grid-cols-4 gap-2">
+                      {packages.map((opt) => (
                         <button
-                          key={weight}
-                          onClick={() => handleKg(p.id, weight)}
-                          className={`py-2 text-xs font-bold rounded-xl border transition-all ${
-                            kg === weight
+                          key={opt.kg}
+                          onClick={() => handleKg(p.id, opt.kg)}
+                          className={`relative py-2 text-xs font-bold rounded-xl border transition-all ${
+                            kg === opt.kg
                               ? "bg-amber-500 text-neutral-950 border-amber-400 shadow-md shadow-amber-500/20 font-black"
                               : "bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border-neutral-800"
                           }`}
                         >
-                          {weight} KG
+                          {opt.kg} KG
+                          {opt.gift ? (
+                            <span className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500 text-neutral-950 text-[9px] font-black">
+                              {opt.gift}
+                            </span>
+                          ) : null}
                         </button>
                       ))}
                     </div>
@@ -189,7 +239,7 @@ export default function ProductsPage() {
                 <div className="pt-4 border-t border-neutral-800">
                   <div className="flex items-baseline justify-between mb-4">
                     <span className="text-xs text-neutral-400 font-medium">{kg} KG Toplam Tutar:</span>
-                    <span className="text-3xl font-black text-white">{finalTotal.toLocaleString("tr-TR")} ₺</span>
+                    <span className="text-3xl font-black text-white">{pkg.price.toLocaleString("tr-TR")} ₺</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
@@ -203,9 +253,8 @@ export default function ProductsPage() {
                       onClick={(e) => addToCart({
                         id: p.id,
                         name: p.name,
-                        pricePerKg: p.pricePerKg,
                         image: productImage
-                      }, kg, 1, e)}
+                      }, pkg, 1, variants.length > 1 ? variant : undefined, e)}
                       className="flex items-center justify-center space-x-2 py-3 px-4 text-xs font-bold rounded-xl bg-red-600 hover:bg-red-500 text-white shadow-lg shadow-red-900/40 transition-all hover:scale-105 active:scale-95 cursor-pointer"
                     >
                       <ShoppingBag className="h-4 w-4" />

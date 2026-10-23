@@ -1,120 +1,95 @@
 [
   {
     "id": 1,
-    "name": "Özel Afyon Kangal Sucuk",
-    "category": "Geleneksel Kangal",
+    "name": "Afyon Sucuğu",
+    "category": "Afyon Sucuğu",
     "tag": "En Çok Satan",
     "tagColor": "bg-red-600 text-white",
-    "description": "Doğal bağırsakta geleneksel yöntemlerle dinlendirilmiş, sarımsak ve Afyon baharatlarıyla zenginleşmiş asil lezzet.",
-    "pricePerKg": 500,
+    "description": "Geleneksel yöntemlerle üretilmiş, taze Taşköprü sarımsağı ve yöresel Afyon baharatlarıyla yoğrulmuş, doğal bağırsakta 21 gün fermente edilmiş hakiki Afyon sucuğu.",
+    "pricePerKg": 350,
     "stockKg": 450,
     "isActive": true,
     "imageUrl": "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg",
     "rating": 4.9,
     "reviewsCount": 328,
+    "packages": [
+      { "kg": 1, "price": 350 },
+      { "kg": 5, "price": 1750, "gift": 1 },
+      { "kg": 7, "price": 2000, "gift": 1.5 },
+      { "kg": 10, "price": 3500, "gift": 2 }
+    ],
+    "variants": ["Acısız", "Acılı"],
     "features": [
-      "%100 Yerli Besi Dana Eti",
-      "Doğal Dana Bağırsak",
+      "%100 Afyon Sucuğu",
+      "Doğal Bağırsak",
       "Isıl İşlemsiz Doğal Fermente",
       "Sıfır Kimyasal Katkı & Koruyucu",
       "Glutensiz & Helal Kesim Sertifikalı"
     ],
     "specs": [
-      {
-        "label": "Menşei",
-        "value": "Afyonkarahisar / Türkiye"
-      },
-      {
-        "label": "Üretim Şekli",
-        "value": "Geleneksel Doğal Fermantasyon"
-      },
-      {
-        "label": "Et Türü",
-        "value": "%100 Dana Eti (But ve Kaburga)"
-      }
+      { "label": "Menşei", "value": "Afyonkarahisar / Türkiye" },
+      { "label": "Üretim Şekli", "value": "Geleneksel Doğal Fermantasyon" },
+      { "label": "Seçenek", "value": "Acılı / Acısız" }
     ]
   },
   {
     "id": 2,
-    "name": "Gurme Acılı Parmak Sucuk",
-    "category": "Parmak Sucuk",
-    "tag": "Şefin Tercihi",
+    "name": "Baton Sucuk",
+    "category": "Baton Sucuk",
+    "tag": "Pratik",
     "tagColor": "bg-amber-500 text-neutral-950 font-bold",
-    "description": "Özel Urfa ve Maraş acı biberleriyle dengelenmiş, mangal ve kahvaltılara tat katan parmak formunda enfes sucuk.",
-    "pricePerKg": 620,
+    "description": "Pratik tüketim için ideal baton formunda, geleneksel reçeteyle üretilmiş, doğal fermente Afyon sucuğu.",
+    "pricePerKg": 400,
     "stockKg": 280,
     "isActive": true,
     "imageUrl": "/uploads/1790690316545_sucuk_duzenleme_19_UHD.jpg",
     "rating": 4.8,
     "reviewsCount": 184,
+    "packages": [
+      { "kg": 1, "price": 400 },
+      { "kg": 5, "price": 1800, "gift": 1 },
+      { "kg": 7, "price": 2100, "gift": 1.5 },
+      { "kg": 10, "price": 3500, "gift": 2 }
+    ],
     "features": [
-      "%100 Dana Eti",
-      "Doğal Acı Pul Biber Karışımı",
-      "Mangala Özel Çıtır Doku"
+      "%100 Afyon Sucuğu",
+      "Doğal Bağırsak",
+      "Geleneksel Kurutma",
+      "Katkısız & Koruyucusuz"
     ],
     "specs": [
-      {
-        "label": "Menşei",
-        "value": "Afyonkarahisar"
-      },
-      {
-        "label": "Baharat",
-        "value": "Maraş Acı Biberi & Taşköprü Sarımsağı"
-      }
+      { "label": "Menşei", "value": "Afyonkarahisar" },
+      { "label": "Form", "value": "Baton" }
     ]
   },
   {
     "id": 3,
-    "name": "Geleneksel Ev Tipi Doğal Fermente",
-    "category": "Doğal Fermente",
-    "tag": "Sınırlı Üretim",
+    "name": "Bez Sucuk",
+    "category": "Bez Sucuk",
+    "tag": "Geleneksel",
     "tagColor": "bg-emerald-600 text-white",
-    "description": "Isıl işlem görmemiş, 21 gün doğal fermantasyon odalarında olgunlaştırılmış %100 katkısız doğal et lezzeti.",
-    "pricePerKg": 680,
-    "stockKg": 190,
-    "isActive": true,
-    "imageUrl": "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
-    "rating": 5,
-    "reviewsCount": 215,
-    "features": [
-      "21 Gün Doğal Kurutma",
-      "Geleneksel Ev Tipi Reçete",
-      "Katkısız & Koruyucusuz"
-    ],
-    "specs": [
-      {
-        "label": "Olgunlaşma",
-        "value": "21 Gün Doğal Fırınlama"
-      },
-      {
-        "label": "Tuz Oranı",
-        "value": "Geleneksel Kaya Tuzu"
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "name": "Özel Dilimli Pratik Kangal Sucuk",
-    "category": "Dilimli",
-    "tag": "Hızlı & Pratik",
-    "tagColor": "bg-neutral-800 text-amber-300 border border-amber-400/40",
-    "description": "Kahvaltılar ve tostlar için ideal kalınlıkta hijyenik dilimlenmiş, tazeliği kilitli özel vakum pakette.",
-    "pricePerKg": 640,
+    "description": "Geleneksel bez yöntemiyle sarılarak dinlendirilmiş, yoğun aromalı ve uzun raf ömürlü özel Afyon sucuğu.",
+    "pricePerKg": 550,
     "stockKg": 320,
     "isActive": true,
-    "imageUrl": "/uploads/1790690350599_sucuk_duzenleme_16_UHD.jpg",
-    "rating": 4.7,
-    "reviewsCount": 92,
+    "imageUrl": "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
+    "rating": 4.9,
+    "reviewsCount": 146,
+    "packages": [
+      { "kg": 1, "price": 550 },
+      { "kg": 5, "price": 2750 },
+      { "kg": 7, "price": 3850 },
+      { "kg": 10, "price": 5500 }
+    ],
     "features": [
-      "Eşit Dilimlenmiş Dilimler",
-      "Tazeliği Korumalı Vakum Ambalaj",
-      "Tost ve Kahvaltı İçin Hazır"
+      "%100 Afyon Sucuğu",
+      "Geleneksel Bez Yöntemi",
+      "Doğal Bağırsak",
+      "Yoğun Aromalı"
     ],
     "specs": [
-      {
-        "label": "Paket",
-        "value": "Vakumlu Koruyucu Tabak"
-      }
+      { "label": "Menşei", "value": "Afyonkarahisar" },
+      { "label": "Ambalaj", "value": "Geleneksel Bez" }
     ]
   }
 ]

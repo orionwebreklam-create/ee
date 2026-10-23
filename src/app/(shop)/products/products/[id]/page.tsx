@@ -8,11 +8,11 @@ import { useParams } from "next/navigation";
 // Mock data
 const product = {
   id: "1",
-  name: "Klasik Kangal Sucuk",
-  description: "Geleneksel Türk damak tadına uygun, %100 dana eti ve yöresel Afyon baharatlarıyla hazırlanmış klasik kangal sucuk. Özel kurutma odalarında ideal nem ve sıcaklıkta fermente edilmiştir.",
+  name: "Afyon Sucuğu",
+  description: "Geleneksel Türk damak tadına uygun, %100 Afyon Sucuğu ve yöresel Afyon baharatlarıyla hazırlanmış klasik kangal sucuk. Özel kurutma odalarında ideal nem ve sıcaklıkta fermente edilmiştir.",
   pricePerKg: 590,
   image: "https://images.unsplash.com/photo-1589304198126-79c2a382101e?auto=format&fit=crop&w=800&q=80",
-  features: ["%100 Dana Eti", "Doğal Bağırsak", "Glutensiz", "Katkısız"]
+  features: ["%100 Afyon Sucuğu", "Doğal Bağırsak", "Glutensiz", "Katkısız"]
 };
 
 const weightOptions = [1, 3, 5, 10, 20];

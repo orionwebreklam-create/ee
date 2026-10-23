@@ -25,8 +25,8 @@ export default function AdminProductsPage() {
 
   // Form State
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Kangal Sucuk");
-  const [pricePerKg, setPricePerKg] = useState(590);
+  const [category, setCategory] = useState("Afyon Sucuğu");
+  const [pricePerKg, setPricePerKg] = useState(350);
   const [stockKg, setStockKg] = useState(100);
   const [imageUrl, setImageUrl] = useState("");
 
@@ -52,8 +52,8 @@ export default function AdminProductsPage() {
   const handleOpenAdd = () => {
     setEditingProduct(null);
     setName("");
-    setCategory("Kangal Sucuk");
-    setPricePerKg(590);
+    setCategory("Afyon Sucuğu");
+    setPricePerKg(350);
     setStockKg(100);
     setImageUrl("/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg");
     setModalOpen(true);
@@ -62,7 +62,7 @@ export default function AdminProductsPage() {
   const handleOpenEdit = (p: AdminProduct) => {
     setEditingProduct(p);
     setName(p.name);
-    setCategory(p.category || "Kangal Sucuk");
+    setCategory(p.category || "Afyon Sucuğu");
     setPricePerKg(p.pricePerKg);
     setStockKg(p.stockKg);
     setImageUrl(p.imageUrl);
@@ -261,7 +261,7 @@ export default function AdminProductsPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-red-600"
-                  placeholder="Örn: Özel Kangal Sucuk"
+                  placeholder="Örn: Afyon Sucuğu"
                 />
               </div>
 

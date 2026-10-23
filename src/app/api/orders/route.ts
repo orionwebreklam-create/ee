@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       address: body.address || "",
       city: body.city || "İstanbul",
       district: body.district || "Kadıköy",
-      items: body.items || "Ardabey Kangal Sucuk",
+      items: body.items || "Afyon Sucuğu",
       itemsList: body.itemsList || [],
       kg: Number(body.kg) || 1,
       total: Number(body.total),

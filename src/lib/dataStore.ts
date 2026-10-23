@@ -2,6 +2,12 @@ import fs from "fs";
 import path from "path";
 import { supabase, isSupabaseConfigured } from "./supabase";
 
+export interface ProductPackage {
+  kg: number;
+  price: number;
+  gift?: number;
+}
+
 export interface StoredProduct {
   id: number;
   name: string;
@@ -17,6 +23,8 @@ export interface StoredProduct {
   reviewsCount: number;
   features?: string[];
   specs?: { label: string; value: string }[];
+  packages?: ProductPackage[];
+  variants?: string[];
 }
 
 export interface StoredSettings {
@@ -138,20 +146,27 @@ function persistJson(filePath: string, data: unknown) {
 const defaultProducts: StoredProduct[] = [
   {
     id: 1,
-    name: "Özel Afyon Kangal Sucuk",
-    category: "Geleneksel Kangal",
+    name: "Afyon Sucuğu",
+    category: "Afyon Sucuğu",
     tag: "En Çok Satan",
     tagColor: "bg-red-600 text-white",
-    description: "Doğal bağırsakta geleneksel yöntemlerle dinlendirilmiş, sarımsak ve Afyon baharatlarıyla zenginleşmiş asil lezzet.",
-    pricePerKg: 590,
+    description: "Geleneksel yöntemlerle üretilmiş, taze Taşköprü sarımsağı ve yöresel Afyon baharatlarıyla yoğrulmuş, doğal bağırsakta 21 gün fermente edilmiş hakiki Afyon sucuğu.",
+    pricePerKg: 350,
     stockKg: 450,
     isActive: true,
     imageUrl: "/uploads/1790690304656_sucuk_duzenleme_07_UHD.jpg",
     rating: 4.9,
     reviewsCount: 328,
+    packages: [
+      { kg: 1, price: 350 },
+      { kg: 5, price: 1750, gift: 1 },
+      { kg: 7, price: 2000, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
+    ],
+    variants: ["Acısız", "Acılı"],
     features: [
-      "%100 Yerli Besi Dana Eti",
-      "Doğal Dana Bağırsak",
+      "%100 Afyon Sucuğu",
+      "Doğal Bağırsak",
       "Isıl İşlemsiz Doğal Fermente",
       "Sıfır Kimyasal Katkı & Koruyucu",
       "Glutensiz & Helal Kesim Sertifikalı"
@@ -159,75 +174,67 @@ const defaultProducts: StoredProduct[] = [
     specs: [
       { label: "Menşei", value: "Afyonkarahisar / Türkiye" },
       { label: "Üretim Şekli", value: "Geleneksel Doğal Fermantasyon" },
-      { label: "Et Türü", value: "%100 Dana Eti (But ve Kaburga)" }
+      { label: "Seçenek", value: "Acılı / Acısız" }
     ]
   },
   {
     id: 2,
-    name: "Gurme Acılı Parmak Sucuk",
-    category: "Parmak Sucuk",
-    tag: "Şefin Tercihi",
+    name: "Baton Sucuk",
+    category: "Baton Sucuk",
+    tag: "Pratik",
     tagColor: "bg-amber-500 text-neutral-950 font-bold",
-    description: "Özel Urfa ve Maraş acı biberleriyle dengelenmiş, mangal ve kahvaltılara tat katan parmak formunda enfes sucuk.",
-    pricePerKg: 620,
+    description: "Pratik tüketim için ideal baton formunda, geleneksel reçeteyle üretilmiş, doğal fermente Afyon sucuğu.",
+    pricePerKg: 400,
     stockKg: 280,
     isActive: true,
     imageUrl: "/uploads/1790690316545_sucuk_duzenleme_19_UHD.jpg",
     rating: 4.8,
     reviewsCount: 184,
+    packages: [
+      { kg: 1, price: 400 },
+      { kg: 5, price: 1800, gift: 1 },
+      { kg: 7, price: 2100, gift: 1.5 },
+      { kg: 10, price: 3500, gift: 2 }
+    ],
     features: [
-      "%100 Dana Eti",
-      "Doğal Acı Pul Biber Karışımı",
-      "Mangala Özel Çıtır Doku"
+      "%100 Afyon Sucuğu",
+      "Doğal Bağırsak",
+      "Geleneksel Kurutma",
+      "Katkısız & Koruyucusuz"
     ],
     specs: [
       { label: "Menşei", value: "Afyonkarahisar" },
-      { label: "Baharat", value: "Maraş Acı Biberi & Taşköprü Sarımsağı" }
+      { label: "Form", value: "Baton" }
     ]
   },
   {
     id: 3,
-    name: "Geleneksel Ev Tipi Doğal Fermente",
-    category: "Doğal Fermente",
-    tag: "Sınırlı Üretim",
+    name: "Bez Sucuk",
+    category: "Bez Sucuk",
+    tag: "Geleneksel",
     tagColor: "bg-emerald-600 text-white",
-    description: "Isıl işlem görmemiş, 21 gün doğal fermantasyon odalarında olgunlaştırılmış %100 katkısız doğal et lezzeti.",
-    pricePerKg: 680,
-    stockKg: 190,
-    isActive: true,
-    imageUrl: "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
-    rating: 5.0,
-    reviewsCount: 215,
-    features: [
-      "21 Gün Doğal Kurutma",
-      "Geleneksel Ev Tipi Reçete",
-      "Katkısız & Koruyucusuz"
-    ],
-    specs: [
-      { label: "Olgunlaşma", value: "21 Gün Doğal Fırınlama" },
-      { label: "Tuz Oranı", value: "Geleneksel Kaya Tuzu" }
-    ]
-  },
-  {
-    id: 4,
-    name: "Özel Dilimli Pratik Kangal Sucuk",
-    category: "Dilimli",
-    tag: "Hızlı & Pratik",
-    tagColor: "bg-neutral-800 text-amber-300 border border-amber-400/40",
-    description: "Kahvaltılar ve tostlar için ideal kalınlıkta hijyenik dilimlenmiş, tazeliği kilitli özel vakum pakette.",
-    pricePerKg: 640,
+    description: "Geleneksel bez yöntemiyle sarılarak dinlendirilmiş, yoğun aromalı ve uzun raf ömürlü özel Afyon sucuğu.",
+    pricePerKg: 550,
     stockKg: 320,
     isActive: true,
-    imageUrl: "/uploads/1790690350599_sucuk_duzenleme_16_UHD.jpg",
-    rating: 4.7,
-    reviewsCount: 92,
+    imageUrl: "/uploads/1790690334386_sucuk_duzenleme_14_UHD.jpg",
+    rating: 4.9,
+    reviewsCount: 146,
+    packages: [
+      { kg: 1, price: 550 },
+      { kg: 5, price: 2750 },
+      { kg: 7, price: 3850 },
+      { kg: 10, price: 5500 }
+    ],
     features: [
-      "Eşit Dilimlenmiş Dilimler",
-      "Tazeliği Korumalı Vakum Ambalaj",
-      "Tost ve Kahvaltı İçin Hazır"
+      "%100 Afyon Sucuğu",
+      "Geleneksel Bez Yöntemi",
+      "Doğal Bağırsak",
+      "Yoğun Aromalı"
     ],
     specs: [
-      { label: "Paket", value: "Vakumlu Koruyucu Tabak" }
+      { label: "Menşei", value: "Afyonkarahisar" },
+      { label: "Ambalaj", value: "Geleneksel Bez" }
     ]
   }
 ];
@@ -236,7 +243,7 @@ const defaultSettings: StoredSettings = {
   siteName: "Ardabey Sucukları",
   supportPhone: "0850 308 19 23",
   whatsappPhone: "+90 532 123 45 67",
-  logoUrl: "/uploads/1790692225772_Since_1978.png",
+  logoUrl: "/uploads/logo.png",
   banner1: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600",
   banner2: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&q=80&w=1600",
   freeShippingKg: 3,
@@ -252,12 +259,12 @@ const defaultOrders: StoredOrder[] = [
     address: "Bağdat Caddesi No: 142 Daire: 8, Suadiye",
     city: "İstanbul",
     district: "Kadıköy",
-    items: "Özel Afyon Kangal Sucuk",
+    items: "Afyon Sucuğu (Acılı)",
     itemsList: [
-      { name: "Özel Afyon Kangal Sucuk", kg: 5, quantity: 1, pricePerKg: 540, totalPrice: 2700 }
+      { name: "Afyon Sucuğu (Acılı)", kg: 5, quantity: 1, pricePerKg: 350, totalPrice: 1750 }
     ],
     kg: 5,
-    total: 2700,
+    total: 1750,
     paymentMethod: "Kapıda Nakit",
     status: "Hazırlanıyor",
     trackingNumber: "YK-9841-34-IST",
@@ -273,12 +280,12 @@ const defaultOrders: StoredOrder[] = [
     address: "Arjantin Caddesi No: 28 Kat: 3",
     city: "Ankara",
     district: "Çankaya",
-    items: "Gurme Acılı Parmak Sucuk",
+    items: "Baton Sucuk",
     itemsList: [
-      { name: "Gurme Acılı Parmak Sucuk", kg: 3, quantity: 1, pricePerKg: 620, totalPrice: 1860 }
+      { name: "Baton Sucuk", kg: 7, quantity: 1, pricePerKg: 300, totalPrice: 2100 }
     ],
-    kg: 3,
-    total: 1860,
+    kg: 7,
+    total: 2100,
     paymentMethod: "Kredi Kartı (Online)",
     status: "Kargolandı",
     trackingNumber: "MNG-4820-ANK",
@@ -294,12 +301,12 @@ const defaultOrders: StoredOrder[] = [
     address: "Cemal Gürsel Cad. No: 65/2, Bostanlı",
     city: "İzmir",
     district: "Karşıyaka",
-    items: "Geleneksel Ev Tipi Doğal Fermente",
+    items: "Bez Sucuk",
     itemsList: [
-      { name: "Geleneksel Ev Tipi Doğal Fermente", kg: 10, quantity: 1, pricePerKg: 630, totalPrice: 6300 }
+      { name: "Bez Sucuk", kg: 10, quantity: 1, pricePerKg: 550, totalPrice: 5500 }
     ],
     kg: 10,
-    total: 6300,
+    total: 5500,
     paymentMethod: "Havale / EFT",
     status: "Teslim Edildi",
     trackingNumber: "YK-8821-35-IZM",
@@ -315,12 +322,12 @@ const defaultOrders: StoredOrder[] = [
     address: "Fatih Sultan Mehmet Bulvarı No: 88, İhsaniye",
     city: "Bursa",
     district: "Nilüfer",
-    items: "Toptan Özel Kangal Sucuk",
+    items: "Afyon Sucuğu (Toptan)",
     itemsList: [
-      { name: "Özel Afyon Kangal Sucuk", kg: 20, quantity: 1, pricePerKg: 540, totalPrice: 10800 }
+      { name: "Afyon Sucuğu", kg: 10, quantity: 1, pricePerKg: 350, totalPrice: 3500 }
     ],
-    kg: 20,
-    total: 10800,
+    kg: 10,
+    total: 3500,
     paymentMethod: "Kapıda Kredi Kartı",
     status: "Kargolandı",
     trackingNumber: "ARAS-7193-BURSA",
@@ -399,7 +406,9 @@ function mapSupabaseProduct(row: any): StoredProduct {
     rating: Number(row.rating || 5.0),
     reviewsCount: Number(row.reviews_count || 0),
     features: row.features || [],
-    specs: row.specs || []
+    specs: row.specs || [],
+    packages: row.packages || [],
+    variants: row.variants || []
   };
 }
 
@@ -478,6 +487,8 @@ export async function updateStoredProduct(id: number, updates: Partial<StoredPro
       if (updates.reviewsCount !== undefined) payload.reviews_count = updates.reviewsCount;
       if (updates.features !== undefined) payload.features = updates.features;
       if (updates.specs !== undefined) payload.specs = updates.specs;
+      if (updates.packages !== undefined) payload.packages = updates.packages;
+      if (updates.variants !== undefined) payload.variants = updates.variants;
 
       const { data, error } = await supabase
         .from("products")
@@ -516,7 +527,9 @@ export async function createStoredProduct(newProd: Omit<StoredProduct, "id"> & {
     rating: newProd.rating || 5.0,
     reviewsCount: newProd.reviewsCount || 0,
     features: newProd.features || [],
-    specs: newProd.specs || []
+    specs: newProd.specs || [],
+    packages: newProd.packages || [],
+    variants: newProd.variants || []
   };
 
   if (isSupabaseConfigured && supabase) {
@@ -537,7 +550,9 @@ export async function createStoredProduct(newProd: Omit<StoredProduct, "id"> & {
           rating: created.rating,
           reviews_count: created.reviewsCount,
           features: created.features,
-          specs: created.specs
+          specs: created.specs,
+          packages: created.packages,
+          variants: created.variants
         })
         .select()
         .maybeSingle();

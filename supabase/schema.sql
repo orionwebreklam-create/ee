@@ -20,6 +20,8 @@ create table if not exists public.products (
   reviews_count int default 0,
   features jsonb default '[]'::jsonb,
   specs jsonb default '[]'::jsonb,
+  packages jsonb default '[]'::jsonb,
+  variants jsonb default '[]'::jsonb,
   created_at timestamptz default now()
 );
 

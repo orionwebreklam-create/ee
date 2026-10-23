@@ -117,7 +117,9 @@ async function runSeed() {
         rating: prod.rating || 5.0,
         reviews_count: prod.reviewsCount || 0,
         features: prod.features || [],
-        specs: prod.specs || []
+        specs: prod.specs || [],
+        packages: prod.packages || [],
+        variants: prod.variants || []
       });
       if (pErr) console.error(`   ❌ Ürün #${prod.id} (${prod.name}) aktarılamadı:`, pErr.message);
       else console.log(`   ✅ Ürün aktarıldı: ${prod.name}`);

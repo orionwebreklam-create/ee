@@ -29,7 +29,7 @@ import {
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authDropdownOpen, setAuthDropdownOpen] = useState(false);
-  const [logoUrl, setLogoUrl] = useState<string>("/uploads/1790692225772_Since_1978.png");
+  const [logoUrl, setLogoUrl] = useState<string>("/uploads/logo.png");
   const { cartCount, isCartBumping } = useCart();
   const { user, logout: userLogout, isAuthenticated: isUserLoggedIn } = useUserAuth();
 
@@ -89,7 +89,7 @@ export default function Header() {
 
             <div className="hidden xl:flex items-center space-x-2 text-neutral-400 text-xs border-l border-neutral-800 pl-3">
               <span className="flex items-center gap-1 text-emerald-400">
-                <ShieldCheck className="h-3 w-3" /> %100 Dana
+                <ShieldCheck className="h-3 w-3" /> %100 Afyon Sucuğu
               </span>
             </div>
           </div>
@@ -119,15 +119,6 @@ export default function Header() {
                 </div>
               </div>
             )}
-            <div className="flex flex-col min-w-0">
-              <div className="flex items-center gap-1 truncate">
-                <span className="text-base sm:text-2xl font-black tracking-wider text-white">ARDABEY</span>
-                <span className="text-base sm:text-2xl font-light tracking-wider text-amber-400">SUCUKLARI</span>
-              </div>
-              <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-neutral-400 font-semibold truncate hidden xs:block">
-                Geleneksel Afyon Lezzeti • 1978
-              </span>
-            </div>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -143,7 +134,7 @@ export default function Header() {
               className="px-3.5 py-2 text-sm font-semibold text-neutral-200 hover:text-amber-400 rounded-lg transition-colors hover:bg-neutral-800/40 flex items-center gap-1.5"
             >
               <span>Ürünlerimiz</span>
-              <span className="bg-red-600 text-[10px] text-white px-1.5 py-0.2 rounded font-bold">4 Çeşit</span>
+              <span className="bg-red-600 text-[10px] text-white px-1.5 py-0.2 rounded font-bold">3 Çeşit</span>
             </Link>
             <Link 
               href="/campaigns" 
@@ -299,9 +290,6 @@ export default function Header() {
                       <Flame className="h-5 w-5 text-red-700" />
                     </div>
                   )}
-                  <span className="text-base font-black text-white tracking-wider">
-                    ARDABEY <span className="text-amber-400">MENÜ</span>
-                  </span>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
@@ -386,7 +374,7 @@ export default function Header() {
                 >
                   <div className="flex items-center space-x-2">
                     <span className="text-sm font-semibold">Sucuk Çeşitlerimiz</span>
-                    <span className="bg-red-600 text-[10px] text-white px-1.5 py-0.2 rounded font-bold">4 Çeşit</span>
+                    <span className="bg-red-600 text-[10px] text-white px-1.5 py-0.2 rounded font-bold">3 Çeşit</span>
                   </div>
                   <ChevronRight className="h-4 w-4 text-neutral-500" />
                 </Link>
@@ -469,7 +457,7 @@ export default function Header() {
               </a>
 
               <p className="text-[10px] text-center text-neutral-500 pt-1">
-                %100 Yerli Besi Dana Eti • Afyonkarahisar
+                %100 Afyon Sucuğu • Afyonkarahisar
               </p>
             </div>
 

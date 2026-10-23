@@ -97,7 +97,7 @@ export default function AdminDashboard() {
             <span className="text-3xl font-black text-white">1.480 KG</span>
             <span className="text-xs font-bold text-emerald-400">Bu Ay</span>
           </div>
-          <p className="text-[11px] text-neutral-500 mt-2">%100 yerli dana eti sucuk</p>
+          <p className="text-[11px] text-neutral-500 mt-2">%100 Afyon Sucuğu</p>
         </div>
 
         {/* Card 4 */}
@@ -155,10 +155,10 @@ export default function AdminDashboard() {
                     <p className="text-[11px] text-neutral-500">İstanbul / Kadıköy</p>
                   </td>
                   <td className="py-3.5 px-3">
-                    <span>Özel Afyon Kangal Sucuk</span>
+                    <span>Afyon Sucuğu</span>
                     <span className="ml-1.5 px-1.5 py-0.5 rounded bg-neutral-800 font-bold text-amber-400">5 KG</span>
                   </td>
-                  <td className="py-3.5 px-3 font-bold text-white">2.700 ₺</td>
+                  <td className="py-3.5 px-3 font-bold text-white">1.750 ₺</td>
                   <td className="py-3.5 px-3">
                     <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
                       Hazırlanıyor
@@ -173,10 +173,10 @@ export default function AdminDashboard() {
                     <p className="text-[11px] text-neutral-500">Ankara / Çankaya</p>
                   </td>
                   <td className="py-3.5 px-3">
-                    <span>Gurme Acılı Parmak</span>
-                    <span className="ml-1.5 px-1.5 py-0.5 rounded bg-neutral-800 font-bold text-amber-400">3 KG</span>
+                    <span>Baton Sucuk</span>
+                    <span className="ml-1.5 px-1.5 py-0.5 rounded bg-neutral-800 font-bold text-amber-400">7 KG</span>
                   </td>
-                  <td className="py-3.5 px-3 font-bold text-white">1.860 ₺</td>
+                  <td className="py-3.5 px-3 font-bold text-white">2.100 ₺</td>
                   <td className="py-3.5 px-3">
                     <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
                       Kargolandı
@@ -191,10 +191,10 @@ export default function AdminDashboard() {
                     <p className="text-[11px] text-neutral-500">İzmir / Karşıyaka</p>
                   </td>
                   <td className="py-3.5 px-3">
-                    <span>Ev Tipi Doğal Fermente</span>
+                    <span>Bez Sucuk</span>
                     <span className="ml-1.5 px-1.5 py-0.5 rounded bg-neutral-800 font-bold text-amber-400">10 KG</span>
                   </td>
-                  <td className="py-3.5 px-3 font-bold text-white">6.300 ₺</td>
+                  <td className="py-3.5 px-3 font-bold text-white">5.500 ₺</td>
                   <td className="py-3.5 px-3">
                     <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                       Teslim Edildi
@@ -215,7 +215,7 @@ export default function AdminDashboard() {
             <div className="space-y-4 text-xs">
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <span className="font-bold text-white">Özel Afyon Kangal</span>
+                  <span className="font-bold text-white">Afyon Sucuğu</span>
                   <span className="text-amber-400 font-semibold">450 KG Stok</span>
                 </div>
                 <div className="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
@@ -225,7 +225,7 @@ export default function AdminDashboard() {
 
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <span className="font-bold text-white">Gurme Acılı Parmak</span>
+                  <span className="font-bold text-white">Baton Sucuk</span>
                   <span className="text-amber-400 font-semibold">280 KG Stok</span>
                 </div>
                 <div className="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
@@ -235,21 +235,11 @@ export default function AdminDashboard() {
 
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <span className="font-bold text-white">Doğal Ev Tipi Fermente</span>
-                  <span className="text-amber-400 font-semibold">190 KG Stok</span>
-                </div>
-                <div className="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-500 rounded-full w-[42%]" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-1.5">
-                  <span className="font-bold text-white">Dilimli Pratik Kangal</span>
+                  <span className="font-bold text-white">Bez Sucuk</span>
                   <span className="text-amber-400 font-semibold">320 KG Stok</span>
                 </div>
                 <div className="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 rounded-full w-[60%]" />
+                  <div className="h-full bg-emerald-500 rounded-full w-[42%]" />
                 </div>
               </div>
             </div>

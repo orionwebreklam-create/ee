@@ -29,10 +29,10 @@ export default function AboutPage() {
               <span>Geleneksel Ustalık ve Saf Et Prensibi</span>
             </h2>
             <p className="text-sm text-neutral-300 leading-relaxed mb-4">
-              Ardabey Sucukları, Afyonkarahisar&apos;ın tescilli coğrafi işaretine sadık kalarak sadece %100 yerli besi danaların but ve kaburga etleriyle üretilir. Ürünlerimizde mekanik ayrılmış et (MDM), soya, nişasta veya renklendirici kimyasallara kesinlikle yer verilmez.
+              Ardabey Sucukları, Afyonkarahisar&apos;ın tescilli coğrafi işaretine sadık kalarak sadece özenle seçilmiş but ve kaburga etleriyle üretilir. Ürünlerimizde mekanik ayrılmış et (MDM), soya, nişasta veya renklendirici kimyasallara kesinlikle yer verilmez.
             </p>
             <p className="text-sm text-neutral-300 leading-relaxed">
-              Doğal Taşköprü sarımsağı, özel tatlı ve acı kırmızı biber harmanı ve geleneksel baharat reçetesi etle yoğrulduktan sonra doğal dana bağırsağına doldurulur. 21 günlük doğal fermantasyon ve kuruma sürecinden sonra sofralarınıza sunulur.
+              Doğal Taşköprü sarımsağı, özel tatlı ve acı kırmızı biber harmanı ve geleneksel baharat reçetesi etle yoğrulduktan sonra doğal bağırsağa doldurulur. 21 günlük doğal fermantasyon ve kuruma sürecinden sonra sofralarınıza sunulur.
             </p>
           </div>
 
@@ -40,7 +40,7 @@ export default function AboutPage() {
             <div className="bg-neutral-900/60 border border-neutral-800 p-6 rounded-2xl">
               <Award className="h-7 w-7 text-amber-400 mb-3" />
               <h3 className="font-bold text-white mb-1 text-base">%100 Helal & Doğal</h3>
-              <p className="text-xs text-neutral-400">Veteriner hekim kontrolünde İslami usullere uygun kesilmiş yerli besi danalar.</p>
+              <p className="text-xs text-neutral-400">Veteriner hekim kontrolünde İslami usullere uygun hazırlanmış özenle seçilmiş etler.</p>
             </div>
 
             <div className="bg-neutral-900/60 border border-neutral-800 p-6 rounded-2xl">
