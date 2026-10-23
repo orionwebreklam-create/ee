@@ -104,7 +104,7 @@ export default function Header() {
           {/* Brand Logo */}
           <Link href="/" className="flex items-center space-x-2 sm:space-x-3.5 group min-w-0 shrink">
             {logoUrl ? (
-              <div className="relative flex h-10 w-10 sm:h-13 sm:w-13 shrink-0 items-center justify-center rounded-2xl bg-neutral-950/90 p-0.5 border border-amber-500/30 shadow-lg shadow-amber-500/10 group-hover:border-amber-400 group-hover:shadow-amber-500/30 transition-all duration-300">
+              <div className="relative flex h-14 w-14 sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-2xl bg-neutral-950/90 p-0.5 border border-amber-500/30 shadow-lg shadow-amber-500/10 group-hover:border-amber-400 group-hover:shadow-amber-500/30 transition-all duration-300">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={logoUrl}
@@ -281,7 +281,7 @@ export default function Header() {
               <div className="flex items-center justify-between pb-4 border-b border-neutral-800 mb-5">
                 <div className="flex items-center space-x-2.5">
                   {logoUrl ? (
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-neutral-900 border border-amber-500/40 p-0.5 shadow-md">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-neutral-900 border border-amber-500/40 p-0.5 shadow-md">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={logoUrl} alt="Logo" className="h-full w-full object-contain" />
                     </div>
