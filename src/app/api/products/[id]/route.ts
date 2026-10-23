@@ -49,7 +49,10 @@ export async function PUT(
     return NextResponse.json({ success: true, product: updated });
   } catch (error) {
     console.error("PUT /api/products/[id] error:", error);
-    return NextResponse.json({ error: "Ürün güncellenirken hata oluştu." }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Ürün güncellenirken hata oluştu." },
+      { status: 500 }
+    );
   }
 }
 
@@ -69,6 +72,9 @@ export async function DELETE(
     return NextResponse.json({ success: true, message: "Ürün başarıyla silindi." });
   } catch (error) {
     console.error("DELETE /api/products/[id] error:", error);
-    return NextResponse.json({ error: "Ürün silinemedi." }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Ürün silinemedi." },
+      { status: 500 }
+    );
   }
 }

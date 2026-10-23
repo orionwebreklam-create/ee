@@ -114,6 +114,24 @@ function ensureDataDir() {
   }
 }
 
+// Persist JSON to disk. Throws a clear error when writing is not possible
+// (e.g. Vercel read-only filesystem) so the admin UI can surface it instead
+// of silently showing a false "saved" success message.
+function persistJson(filePath: string, data: unknown) {
+  try {
+    ensureDataDir();
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+  } catch (e) {
+    console.error(`[dataStore] ${filePath} yazılamadı:`, e);
+    throw new Error(
+      "Değişiklikler kalıcı olarak kaydedilemedi. " +
+      "Bu sunucuda kalıcı yazma izni yok (Vercel). " +
+      "Kalıcı kayıt için Supabase bağlantısı gereklidir — ortam değişkenlerine " +
+      "NEXT_PUBLIC_SUPABASE_URL ve SUPABASE_SERVICE_ROLE_KEY ekleyin."
+    );
+  }
+}
+
 // -------------------------------------------------------------
 // DEFAULTS
 // -------------------------------------------------------------
@@ -482,10 +500,7 @@ export async function updateStoredProduct(id: number, updates: Partial<StoredPro
   if (index === -1) return null;
 
   products[index] = { ...products[index], ...updates };
-  try {
-    ensureDataDir();
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2), "utf-8");
-  } catch {}
+  persistJson(PRODUCTS_FILE, products);
   return products[index];
 }
 
@@ -537,10 +552,7 @@ export async function createStoredProduct(newProd: Omit<StoredProduct, "id"> & {
 
   // Local fallback
   products.unshift(created);
-  try {
-    ensureDataDir();
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2), "utf-8");
-  } catch {}
+  persistJson(PRODUCTS_FILE, products);
   return created;
 }
 
@@ -557,10 +569,7 @@ export async function deleteStoredProduct(id: number): Promise<boolean> {
   const products = await getStoredProducts();
   const filtered = products.filter(p => p.id !== id);
   if (filtered.length === products.length) return false;
-  try {
-    ensureDataDir();
-    fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(filtered, null, 2), "utf-8");
-  } catch {}
+  persistJson(PRODUCTS_FILE, filtered);
   return true;
 }
 
@@ -631,10 +640,7 @@ export async function updateStoredSettings(updates: Partial<StoredSettings>): Pr
     }
   }
 
-  try {
-    ensureDataDir();
-    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(updated, null, 2), "utf-8");
-  } catch {}
+  persistJson(SETTINGS_FILE, updated);
   return updated;
 }
 
@@ -746,10 +752,7 @@ export async function createStoredOrder(order: Omit<StoredOrder, "id" | "date" |
   // Local fallback
   const orders = await getStoredOrders();
   orders.unshift(newOrder);
-  try {
-    ensureDataDir();
-    fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), "utf-8");
-  } catch {}
+  persistJson(ORDERS_FILE, orders);
   return newOrder;
 }
 
@@ -775,10 +778,7 @@ export async function updateStoredOrderStatus(id: string, status: StoredOrder["s
   const index = orders.findIndex(o => o.id === id);
   if (index === -1) return null;
   orders[index].status = status;
-  try {
-    ensureDataDir();
-    fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), "utf-8");
-  } catch {}
+  persistJson(ORDERS_FILE, orders);
   return orders[index];
 }
 
@@ -841,9 +841,6 @@ export async function updateStoredPaymentSettings(updates: Partial<StoredPayment
     }
   }
 
-  try {
-    ensureDataDir();
-    fs.writeFileSync(PAYMENTS_FILE, JSON.stringify(updated, null, 2), "utf-8");
-  } catch {}
+  persistJson(PAYMENTS_FILE, updated);
   return updated;
 }

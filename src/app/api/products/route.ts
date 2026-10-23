@@ -34,6 +34,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, product: created });
   } catch (error) {
     console.error("POST /api/products error:", error);
-    return NextResponse.json({ error: "Ürün kaydedilemedi." }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Ürün kaydedilemedi." },
+      { status: 500 }
+    );
   }
 }

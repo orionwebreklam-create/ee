@@ -7,8 +7,8 @@ import Link from "next/link";
 
 export default function AdminLoginForm() {
   const { login } = useAdminAuth();
-  const [email, setEmail] = useState("admin@ardabeysucuklari.com");
-  const [password, setPassword] = useState("admin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
@@ -67,7 +67,7 @@ export default function AdminLoginForm() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs" autoComplete="off">
             <div>
               <label className="block font-bold text-neutral-300 mb-1.5">Yönetici E-Posta / Kullanıcı Adı</label>
               <div className="relative">
@@ -75,6 +75,8 @@ export default function AdminLoginForm() {
                 <input
                   type="text"
                   required
+                  autoComplete="off"
+                  name="admin_username"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors"
@@ -90,6 +92,8 @@ export default function AdminLoginForm() {
                 <input
                   type={showPassword ? "text" : "password"}
                   required
+                  autoComplete="new-password"
+                  name="admin_password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-10 pr-10 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors"

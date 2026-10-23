@@ -14,6 +14,7 @@ export default function AdminSettingsPage() {
   const [freeShippingKg, setFreeShippingKg] = useState(3);
   const [bulkDiscountKg, setBulkDiscountKg] = useState(5);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
@@ -53,12 +54,17 @@ export default function AdminSettingsPage() {
           bulkDiscountKg
         })
       });
+      const data = await res.json();
       if (res.ok) {
         setSaved(true);
+        setError("");
         setTimeout(() => setSaved(false), 3000);
+      } else {
+        setError(data.error || "Ayarlar kaydedilemedi.");
       }
     } catch (err) {
       console.error(err);
+      setError("Bağlantı hatası oluştu.");
     } finally {
       setIsSaving(false);
     }
@@ -75,6 +81,12 @@ export default function AdminSettingsPage() {
         <div className="mb-6 p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold flex items-center gap-2">
           <Check className="h-4 w-4 text-emerald-400" />
           <span>Ayarlar başarıyla kaydedildi ve anasayfaya yansıtıldı!</span>
+        </div>
+      )}
+
+      {error && (
+        <div className="mb-6 p-4 rounded-2xl bg-red-600/20 border border-red-500/40 text-red-300 text-xs font-bold">
+          {error}
         </div>
       )}
 

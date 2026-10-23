@@ -18,6 +18,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, settings: updated });
   } catch (error) {
     console.error("POST /api/settings error:", error);
-    return NextResponse.json({ error: "Ayarlar kaydedilemedi." }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Ayarlar kaydedilemedi." },
+      { status: 500 }
+    );
   }
 }
