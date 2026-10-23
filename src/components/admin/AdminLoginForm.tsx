@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useAdminAuth } from "@/context/AdminAuthContext";
-import { Lock, Mail, Eye, EyeOff, ShieldCheck, Flame, ArrowRight, Sparkles } from "lucide-react";
+import { Lock, Mail, Eye, EyeOff, ShieldCheck, Flame, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminLoginForm() {
@@ -17,12 +17,8 @@ export default function AdminLoginForm() {
     setError("");
     const success = login(email, password);
     if (!success) {
-      setError("Hatalı kullanıcı adı veya şifre! (Varsayılan: admin@ardabeysucuklari.com / admin)");
+      setError("Hatalı kullanıcı adı veya şifre!");
     }
-  };
-
-  const handleQuickDemoLogin = () => {
-    login("admin@ardabeysucuklari.com", "admin");
   };
 
   return (
@@ -80,7 +76,7 @@ export default function AdminLoginForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-neutral-950 border border-neutral-800 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-amber-400 transition-colors"
-                  placeholder="admin@ardabeysucuklari.com"
+                  placeholder="E-posta adresiniz"
                 />
               </div>
             </div>
@@ -109,12 +105,11 @@ export default function AdminLoginForm() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-[11px] text-neutral-400 pt-1">
+            <div className="flex items-center text-[11px] text-neutral-400 pt-1">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" defaultChecked className="accent-amber-500 rounded" />
                 <span>Oturumu Açık Tut</span>
               </label>
-              <span className="text-amber-400/90 font-medium">Varsayılan: admin / admin</span>
             </div>
 
             <button
@@ -125,18 +120,6 @@ export default function AdminLoginForm() {
               <ArrowRight className="h-4 w-4" />
             </button>
           </form>
-
-          {/* Quick Demo One-Click Access */}
-          <div className="mt-5 pt-5 border-t border-neutral-800 text-center">
-            <button
-              type="button"
-              onClick={handleQuickDemoLogin}
-              className="w-full py-2.5 rounded-xl bg-neutral-950 hover:bg-neutral-800 text-amber-400 border border-amber-500/30 text-xs font-bold transition-all flex items-center justify-center space-x-1.5"
-            >
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Tek Tıkla Giriş Yap (Demo)</span>
-            </button>
-          </div>
 
         </div>
 
